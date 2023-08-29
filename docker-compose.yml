@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+    php:
+      build:
+        context: .
+      image: php:7.4-apache
+      container_name: reina
+      ports:
+        - "80:80"
+      volumes:
+        - ".:/var/www/html/"
+      links:
+        - postgres
+
+    postgres:
+      image: postgres:15.4
+      restart: always
+      container_name: bdreina
+      ports:
+        - "5432:5432"
+      volumes:
+        - /var/lib/postgresql/data
+      environment:
+        POSTGRES_PASSWORD: "reina123"
+volumes:
+  postgresql-data:
